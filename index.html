@@ -5,113 +5,241 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Турнирная сетка на 30 человек</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #bb86fc;
+            --secondary-color: #03dac6;
+            --winner-color: #4caf50;
+            --match-border: #333;
         }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
         .tournament {
             max-width: 100%;
             margin: 0 auto;
             overflow-x: auto;
         }
+        
+        h1 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(187, 134, 252, 0.3);
+        }
+        
         .rounds-container {
             display: flex;
-            gap: 20px;
+            gap: 25px;
+            padding-bottom: 20px;
         }
+        
         .round {
-            min-width: 200px;
+            min-width: 220px;
         }
+        
         .round-title {
             font-weight: bold;
             text-align: center;
-            margin-bottom: 10px;
-            padding: 5px;
-            background: #333;
-            color: white;
-            border-radius: 5px;
-        }
-        .match {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
             margin-bottom: 15px;
-        }
-        .player {
-            margin: 5px 0;
             padding: 8px;
-            background: #eee;
-            border-radius: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+            color: #000;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            position: sticky;
+            left: 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
-        .final .player {
-            background: #fffacd;
+        
+        .match {
+            background: var(--card-bg);
+            border: 1px solid var(--match-border);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
+        
+        .match:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+        
+        .player {
+            margin: 8px 0;
+            padding: 10px;
+            background: #2a2a2a;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .player:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        .player:hover {
+            background: #333;
+            transform: translateX(5px);
+        }
+        
+        .player:hover:before {
+            width: 6px;
+        }
+        
+        .final {
+            border: 2px solid gold;
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+            100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+        }
+        
         .winner {
-            background: #4CAF50 !important;
+            background: var(--winner-color) !important;
             color: white;
             font-weight: bold;
+            animation: winner-glow 1.5s infinite alternate;
+        }
+        
+        @keyframes winner-glow {
+            0% { box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); }
+            100% { box-shadow: 0 0 15px rgba(76, 175, 80, 0.8); }
+        }
+        
+        .remaining-players {
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .remaining-players h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        
+        .player-tag {
+            display: inline-block;
+            background: #333;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 15px;
+            transition: all 0.2s;
+        }
+        
+        .player-tag:hover {
+            background: var(--accent-color);
+            transform: scale(1.05);
+        }
+        
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .round {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .round:nth-child(1) { animation-delay: 0.1s; }
+        .round:nth-child(2) { animation-delay: 0.2s; }
+        .round:nth-child(3) { animation-delay: 0.3s; }
+        .round:nth-child(4) { animation-delay: 0.4s; }
+        .round:nth-child(5) { animation-delay: 0.5s; }
+        
+        /* Стили для скроллбара */
+        ::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
     <div class="tournament">
-        <h1 style="text-align: center;">Турнирная сетка на 30 человек</h1>
+        <h1>🏆 Турнирная сетка на 30 человек 🏆</h1>
         
         <div class="rounds-container">
-            <!-- 1/16 финала (первые 16 пар из 30 участников) -->
+            <!-- 1/16 финала -->
             <div class="round">
                 <div class="round-title">1/16 финала</div>
                 
-                <!-- Матч 1 -->
                 <div class="match">
-                    <div class="player">дима</div>
+                    <div class="player">Игрок 1</div>
                     <div class="player">Игрок 2</div>
                 </div>
                 
-                <!-- Матч 2 -->
                 <div class="match">
                     <div class="player">Игрок 3</div>
                     <div class="player">Игрок 4</div>
                 </div>
                 
-                <!-- Матч 3 -->
                 <div class="match">
                     <div class="player">Игрок 5</div>
                     <div class="player">Игрок 6</div>
                 </div>
                 
-                <!-- Матч 4 -->
                 <div class="match">
                     <div class="player">Игрок 7</div>
                     <div class="player">Игрок 8</div>
                 </div>
                 
-                <!-- Матч 5 -->
                 <div class="match">
                     <div class="player">Игрок 9</div>
                     <div class="player">Игрок 10</div>
                 </div>
                 
-                <!-- Матч 6 -->
                 <div class="match">
                     <div class="player">Игрок 11</div>
                     <div class="player">Игрок 12</div>
                 </div>
                 
-                <!-- Матч 7 -->
                 <div class="match">
                     <div class="player">Игрок 13</div>
                     <div class="player">Игрок 14</div>
                 </div>
                 
-                <!-- Матч 8 -->
                 <div class="match">
                     <div class="player">Игрок 15</div>
                     <div class="player">Игрок 16</div>
                 </div>
                 
-                <!-- Матч 9 (2 игрока из оставшихся 14) -->
                 <div class="match">
                     <div class="player">Игрок 17</div>
                     <div class="player">Игрок 18</div>
@@ -123,28 +251,28 @@
                 <div class="round-title">1/8 финала</div>
                 
                 <div class="match">
-                    <div class="player">Победитель матча 1</div>
-                    <div class="player">Победитель матча 2</div>
+                    <div class="player">Победитель 1/16 1</div>
+                    <div class="player">Победитель 1/16 2</div>
                 </div>
                 
                 <div class="match">
-                    <div class="player">Победитель матча 3</div>
-                    <div class="player">Победитель матча 4</div>
+                    <div class="player">Победитель 1/16 3</div>
+                    <div class="player">Победитель 1/16 4</div>
                 </div>
                 
                 <div class="match">
-                    <div class="player">Победитель матча 5</div>
-                    <div class="player">Победитель матча 6</div>
+                    <div class="player">Победитель 1/16 5</div>
+                    <div class="player">Победитель 1/16 6</div>
                 </div>
                 
                 <div class="match">
-                    <div class="player">Победитель матча 7</div>
-                    <div class="player">Победитель матча 8</div>
+                    <div class="player">Победитель 1/16 7</div>
+                    <div class="player">Победитель 1/16 8</div>
                 </div>
                 
                 <div class="match">
-                    <div class="player">Победитель матча 9</div>
-                    <div class="player">Игрок 19</div> <!-- Оставшиеся игроки проходят без матчей -->
+                    <div class="player">Победитель 1/16 9</div>
+                    <div class="player">Игрок 19</div>
                 </div>
                 
                 <div class="match">
@@ -205,7 +333,7 @@
             
             <!-- Финал -->
             <div class="round">
-                <div class="round-title">Финал</div>
+                <div class="round-title">ФИНАЛ</div>
                 
                 <div class="match final">
                     <div class="player">Финалист 1</div>
@@ -214,9 +342,15 @@
             </div>
         </div>
         
-        <div style="margin-top: 30px; padding: 15px; background: white; border-radius: 5px;">
-            <h3>Оставшиеся участники (не играли в 1/16):</h3>
-            <p>Игрок 26, Игрок 27, Игрок 28, Игрок 29, Игрок 30</p>
+        <div class="remaining-players">
+            <h3>⚡ Оставшиеся участники (начинают с 1/8 финала)</h3>
+            <div>
+                <span class="player-tag">Игрок 26</span>
+                <span class="player-tag">Игрок 27</span>
+                <span class="player-tag">Игрок 28</span>
+                <span class="player-tag">Игрок 29</span>
+                <span class="player-tag">Игрок 30</span>
+            </div>
         </div>
     </div>
 </body>
