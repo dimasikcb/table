@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Турнирная сетка (24 участника + лузеры)</title>
+    <title>Турнирная сетка на 24 участника</title>
     <style>
         :root {
             --bg-color: #121212;
@@ -19,7 +19,7 @@
             --highlight-color: rgba(187, 134, 252, 0.2);
             --final-gold: #ffd700;
         }
-
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -319,31 +319,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
-        .admin-panel {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .admin-toggle {
-            background: var(--accent-color);
-            color: black;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .admin-mode .player-actions {
-            display: flex;
-        }
-        
-        .player-actions {
-            display: none;
-        }
-        
         .connector {
             position: absolute;
             background: var(--accent-color);
@@ -358,21 +333,18 @@
             background: var(--secondary-color);
         }
         
-        /* Остальные стили остаются такими же, как в предыдущем примере */
-        /* ... */
+        .player-actions {
+            display: flex !important;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>🏆 Турнирная сетка (24 участника) 🏆</h1>
+        <h1>🏆 Турнирная сетка на 24 участника 🏆</h1>
         <div class="nav-buttons">
             <a href="#main-bracket" class="nav-button">Основная сетка</a>
             <a href="#losers-bracket" class="nav-button losers">Сетка лузеров</a>
         </div>
-    </div>
-    
-    <div class="admin-panel">
-        <button class="admin-toggle" id="admin-toggle">Режим администратора</button>
     </div>
     
     <div class="grid-container">
@@ -380,7 +352,7 @@
         <div id="main-bracket" class="bracket-section section-highlight">
             <h2 class="section-title">Основная сетка</h2>
             <div class="rounds-container">
-                <!-- 1/12 финала (24 игрока) -->
+                <!-- 1/12 финала (12 матчей) -->
                 <div class="round">
                     <div class="round-title">1/12 финала</div>
                     
@@ -419,12 +391,178 @@
                         </div>
                     </div>
                     
-                    <!-- Добавьте остальные матчи до 12 -->
-                    <!-- ... -->
+                    <div class="match" id="m1-3">
+                        <div class="player">
+                            <span class="player-name">Игрок 5</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Игрок 6</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
                     
+                    <div class="match" id="m1-4">
+                        <div class="player">
+                            <span class="player-name">Игрок 7</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Игрок 8</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match" id="m1-5">
+                        <div class="player">
+                            <span class="player-name">Игрок 9</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Игрок 10</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match" id="m1-6">
+                        <div class="player">
+                            <span class="player-name">Игрок 11</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Игрок 12</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match" id="m1-7">
+                        <div class="player">
+                            <span class="player-name">Игрок 13</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Игрок 14</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match" id="m1-8">
+                        <div class="player">
+                            <span class="player-name">Игрок 15</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Игрок 16</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match" id="m1-9">
+                        <div class="player">
+                            <span class="player-name">Игрок 17</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Игрок 18</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match" id="m1-10">
+                        <div class="player">
+                            <span class="player-name">Игрок 19</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Игрок 20</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match" id="m1-11">
+                        <div class="player">
+                            <span class="player-name">Игрок 21</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Игрок 22</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match" id="m1-12">
+                        <div class="player">
+                            <span class="player-name">Игрок 23</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Игрок 24</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- 1/6 финала (12 победителей) -->
+                <!-- 1/6 финала (6 матчей) -->
                 <div class="round">
                     <div class="round-title">1/6 финала</div>
                     
@@ -445,12 +583,93 @@
                         </div>
                     </div>
                     
-                    <!-- Остальные матчи 1/6 финала -->
-                    <!-- ... -->
+                    <div class="match" id="m2-2">
+                        <div class="player">
+                            <span class="player-name">Победитель M1-3</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Победитель M1-4</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
                     
+                    <div class="match" id="m2-3">
+                        <div class="player">
+                            <span class="player-name">Победитель M1-5</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Победитель M1-6</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match" id="m2-4">
+                        <div class="player">
+                            <span class="player-name">Победитель M1-7</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Победитель M1-8</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match" id="m2-5">
+                        <div class="player">
+                            <span class="player-name">Победитель M1-9</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Победитель M1-10</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match" id="m2-6">
+                        <div class="player">
+                            <span class="player-name">Победитель M1-11</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                        <div class="player">
+                            <span class="player-name">Победитель M1-12</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
+                                <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- 1/3 финала (6 победителей) -->
+                <!-- 1/3 финала (3 матча) -->
                 <div class="round">
                     <div class="round-title">1/3 финала</div>
                     
@@ -471,25 +690,16 @@
                         </div>
                     </div>
                     
-                    <!-- Остальные матчи 1/3 финала -->
-                    <!-- ... -->
-                    
-                </div>
-                
-                <!-- Полуфиналы (3 победителя + 1 из лузеров) -->
-                <div class="round">
-                    <div class="round-title">Полуфиналы</div>
-                    
-                    <div class="match" id="m4-1">
+                    <div class="match" id="m3-2">
                         <div class="player">
-                            <span class="player-name">Победитель M3-1</span>
+                            <span class="player-name">Победитель M2-3</span>
                             <div class="player-actions">
                                 <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
                                 <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
                             </div>
                         </div>
                         <div class="player">
-                            <span class="player-name">Победитель M3-2</span>
+                            <span class="player-name">Победитель M2-4</span>
                             <div class="player-actions">
                                 <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
                                 <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
@@ -497,9 +707,9 @@
                         </div>
                     </div>
                     
-                    <div class="match" id="m4-2">
+                    <div class="match" id="m3-3">
                         <div class="player">
-                            <span class="player-name">Победитель M3-3</span>
+                            <span class="player-name">Победитель M2-5</span>
                             <div class="player-actions">
                                 <button class="action-btn winner-btn" onclick="setWinner(this)">П</button>
                                 <button class="action-btn loser-btn" onclick="moveToLosers(this)">Л</button>
@@ -541,7 +751,7 @@
         <div id="losers-bracket" class="bracket-section">
             <h2 class="section-title losers-title">Сетка лузеров</h2>
             <div class="rounds-container">
-                <!-- Первый раунд лузеров (12 проигравших из 1/12 финала) -->
+                <!-- Первый раунд лузеров (12 игроков) -->
                 <div class="round">
                     <div class="round-title losers-round-title">Раунд 1</div>
                     
@@ -560,12 +770,83 @@
                         </div>
                     </div>
                     
-                    <!-- Остальные матчи первого раунда лузеров -->
-                    <!-- ... -->
+                    <div class="match losers-match" id="l1-2">
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M1-3</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M1-4</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
                     
+                    <div class="match losers-match" id="l1-3">
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M1-5</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M1-6</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match losers-match" id="l1-4">
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M1-7</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M1-8</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match losers-match" id="l1-5">
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M1-9</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M1-10</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match losers-match" id="l1-6">
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M1-11</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M1-12</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- Второй раунд лузеров (6 победителей) -->
+                <!-- Второй раунд лузеров (6 игроков) -->
                 <div class="round">
                     <div class="round-title losers-round-title">Раунд 2</div>
                     
@@ -584,14 +865,17 @@
                         </div>
                     </div>
                     
-                    <!-- Остальные матчи второго раунда лузеров -->
-                    <!-- ... -->
-                    
-                </div>
-                
-                <!-- Полуфиналы лузеров (3 игрока) -->
+                    <div class="match losers-match" id="l2-2">
+                        <div class="player loser-player">
+                            <span class="player-name">Победитель L1-3</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                                </div>
+                        </div>
+                    </div>
+                            <!-- Третий раунд лузеров (3 матча) -->
                 <div class="round">
-                    <div class="round-title losers-round-title">Полуфиналы</div>
+                    <div class="round-title losers-round-title">Раунд 3</div>
                     
                     <div class="match losers-match" id="l3-1">
                         <div class="player loser-player">
@@ -612,27 +896,183 @@
                         <div class="player loser-player">
                             <span class="player-name">Победитель L2-3</span>
                             <div class="player-actions">
-                                <button class="action-btn random-btn" onclick="selectRandomWinner(this)">🎲</button>
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M2-1</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match losers-match" id="l3-3">
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M2-2</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M2-3</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Финал лузеров -->
+                <!-- Четвертый раунд лузеров (3 матча) -->
                 <div class="round">
-                    <div class="round-title losers-round-title">Финал</div>
+                    <div class="round-title losers-round-title">Раунд 4</div>
                     
                     <div class="match losers-match" id="l4-1">
                         <div class="player loser-player">
                             <span class="player-name">Победитель L3-1</span>
                             <div class="player-actions">
-                                <button class="action-btn winner-btn" onclick="promoteToMainBracket(this)">↑</button>
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
                             </div>
                         </div>
                         <div class="player loser-player">
                             <span class="player-name">Победитель L3-2</span>
                             <div class="player-actions">
-                                <button class="action-btn winner-btn" onclick="promoteToMainBracket(this)">↑</button>
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match losers-match" id="l4-2">
+                        <div class="player loser-player">
+                            <span class="player-name">Победитель L3-3</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M2-4</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match losers-match" id="l4-3">
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M2-5</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M2-6</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Пятый раунд лузеров (3 матча) -->
+                <div class="round">
+                    <div class="round-title losers-round-title">Раунд 5</div>
+                    
+                    <div class="match losers-match" id="l5-1">
+                        <div class="player loser-player">
+                            <span class="player-name">Победитель L4-1</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Победитель L4-2</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match losers-match" id="l5-2">
+                        <div class="player loser-player">
+                            <span class="player-name">Победитель L4-3</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M3-1</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match losers-match" id="l5-3">
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M3-2</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player returning-player">
+                            <span class="player-name">Проигравший M3-3</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Шестой раунд лузеров (2 матча) -->
+                <div class="round">
+                    <div class="round-title losers-round-title">Раунд 6</div>
+                    
+                    <div class="match losers-match" id="l6-1">
+                        <div class="player loser-player">
+                            <span class="player-name">Победитель L5-1</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Победитель L5-2</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match losers-match" id="l6-2">
+                        <div class="player loser-player">
+                            <span class="player-name">Победитель L5-3</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Проигравший M3-3</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Седьмой раунд лузеров (финал лузеров) -->
+                <div class="round">
+                    <div class="round-title losers-round-title">Финальный раунд</div>
+                    
+                    <div class="match losers-match" id="losers-final">
+                        <div class="player loser-player">
+                            <span class="player-name">Победитель L6-1</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setFinalLoserWinner(this)">П</button>
+                            </div>
+                        </div>
+                        <div class="player loser-player">
+                            <span class="player-name">Победитель L6-2</span>
+                            <div class="player-actions">
+                                <button class="action-btn winner-btn" onclick="setFinalLoserWinner(this)">П</button>
                             </div>
                         </div>
                     </div>
@@ -640,215 +1080,3 @@
             </div>
         </div>
     </div>
-    
-    <div class="info-block">
-        <h3 style="color: var(--accent-color);">Как работает система:</h3>
-        <ul>
-            <li>24 участника начинают в основной сетке (1/12 финала)</li>
-            <li>Проигравшие в каждом раунде попадают в сетку лузеров</li>
-            <li>В полуфинале лузеров 3 игрока - один выбирается случайно</li>
-            <li>Победитель финала лузеров попадает в полуфинал основной сетки</li>
-            <li>Для управления включите "Режим администратора"</li>
-        </ul>
-    </div>
-
-    <script>
-        // Глобальные переменные
-        let isAdmin = false;
-        const returningPlayerSpot = document.getElementById('returning-player');
-        
-        // Инициализация
-        document.addEventListener('DOMContentLoaded', function() {
-            // Обработка нажатия на кнопки навигации
-            document.querySelectorAll('.nav-button').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                        
-                        targetElement.classList.add('section-highlight');
-                        setTimeout(() => {
-                            targetElement.classList.remove('section-highlight');
-                        }, 3000);
-                    }
-                });
-            });
-            
-            // Режим администратора
-            document.getElementById('admin-toggle').addEventListener('click', function() {
-                isAdmin = !isAdmin;
-                document.body.classList.toggle('admin-mode', isAdmin);
-                this.textContent = isAdmin ? 'Обычный режим' : 'Режим администратора';
-                this.style.backgroundColor = isAdmin ? 'var(--secondary-color)' : 'var(--accent-color)';
-            });
-            
-            // Если в URL есть якорь, подсвечиваем соответствующий раздел
-            if (window.location.hash) {
-                const targetElement = document.querySelector(window.location.hash);
-                if (targetElement) {
-                    targetElement.classList.add('section-highlight');
-                    setTimeout(() => {
-                        targetElement.classList.remove('section-highlight');
-                    }, 3000);
-                }
-            }
-        });
-        
-        // Функции для основной сетки
-        function setWinner(button) {
-            if (!isAdmin) return;
-            
-            const player = button.closest('.player');
-            const match = player.closest('.match');
-            
-            // Сбрасываем всех победителей в матче
-            match.querySelectorAll('.winner').forEach(p => {
-                p.classList.remove('winner');
-                p.querySelector('.winner-btn').textContent = 'П';
-            });
-            
-            // Устанавливаем победителя
-            player.classList.add('winner');
-            button.textContent = '✓';
-            
-            // Перемещаем победителя в следующий раунд
-            advanceWinner(match, player);
-        }
-        
-        function moveToLosers(button) {
-            if (!isAdmin) return;
-            
-            const player = button.closest('.player');
-            const playerName = player.querySelector('.player-name').textContent;
-            const matchId = player.closest('.match').id;
-            
-            // Помечаем как проигравшего
-            player.classList.add('loser');
-            
-            // Добавляем в сетку лузеров
-            addToLosersBracket(playerName, matchId);
-        }
-        
-        function setChampion(button) {
-            if (!isAdmin) return;
-            
-            const player = button.closest('.player');
-            const match = player.closest('.match');
-            
-            match.querySelectorAll('.winner').forEach(p => p.classList.remove('winner'));
-            player.classList.add('winner');
-            button.textContent = '🏆';
-            
-            // Специальные стили для чемпиона
-            player.style.backgroundColor = 'rgba(255, 215, 0, 0.3)';
-            player.style.border = '2px solid var(--final-gold)';
-        }
-        
-        // Функции для сетки лузеров
-        function setLoserWinner(button) {
-            if (!isAdmin) return;
-            
-            const player = button.closest('.player');
-            const match = player.closest('.match');
-            
-            match.querySelectorAll('.winner').forEach(p => p.classList.remove('winner'));
-            player.classList.add('winner');
-            button.textContent = '✓';
-            
-            advanceLoserWinner(match, player);
-        }
-        
-        function selectRandomWinner(button) {
-            if (!isAdmin) return;
-            
-            const player = button.closest('.player');
-            player.classList.add('winner');
-            button.textContent = '✓';
-            
-            // Показываем анимацию случайного выбора
-            button.disabled = true;
-            button.textContent = '...';
-            
-            setTimeout(() => {
-                button.textContent = '✓';
-                advanceLoserWinner(player.closest('.match'), player);
-            }, 1000);
-        }
-        
-        function promoteToMainBracket(button) {
-            if (!isAdmin) return;
-            
-            const player = button.closest('.player');
-            const playerName = player.querySelector('.player-name').textContent;
-            
-            // Перемещаем победителя в основную сетку
-            returningPlayerSpot.querySelector('.player-name').textContent = playerName;
-            returningPlayerSpot.classList.add('returning-player');
-            
-            // Помечаем как победителя
-            player.classList.add('winner');
-            button.textContent = '✓';
-        }
-        
-        // Вспомогательные функции
-        function advanceWinner(match, winner) {
-            const matchId = match.id;
-            const [_, roundNum, matchNum] = matchId.split('-');
-            const nextRound = parseInt(roundNum) + 1;
-            const nextMatchNum = Math.ceil(parseInt(matchNum) / 2);
-            const nextPosition = matchNum % 2 === 0 ? 2 : 1;
-            
-            const nextMatch = document.querySelector(`#m${nextRound}-${nextMatchNum}`);
-            if (nextMatch) {
-                const nextPlayer = nextMatch.querySelector(`.player:nth-child(${nextPosition}) .player-name`);
-                if (nextPlayer) {
-                    nextPlayer.textContent = winner.querySelector('.player-name').textContent;
-                }
-            }
-        }
-        
-        function advanceLoserWinner(match, winner) {
-            const matchId = match.id;
-            const [_, roundNum, matchNum] = matchId.split('-');
-            const nextRound = parseInt(roundNum) + 1;
-            const nextMatchNum = Math.ceil(parseInt(matchNum) / 2);
-            
-            const nextMatch = document.querySelector(`#l${nextRound}-${nextMatchNum}`);
-            if (nextMatch) {
-                // Для полуфинала с 3 игроками
-                if (nextRound === 3 && matchNum == 2) {
-                    const randomPlayer = nextMatch.querySelector('.player .player-name');
-                    if (randomPlayer) {
-                        randomPlayer.textContent = winner.querySelector('.player-name').textContent;
-                    }
-                } else {
-                    const nextPosition = matchNum % 2 === 0 ? 2 : 1;
-                    const nextPlayer = nextMatch.querySelector(`.player:nth-child(${nextPosition}) .player-name`);
-                    if (nextPlayer) {
-                        nextPlayer.textContent = winner.querySelector('.player-name').textContent;
-                    }
-                }
-            }
-        }
-        
-        function addToLosersBracket(playerName, sourceMatchId) {
-            // Находим первый доступный слот в сетке лузеров
-            const firstLoserMatch = document.querySelector('#l1-1');
-            if (firstLoserMatch) {
-                const emptySlot = firstLoserMatch.querySelector('.player-name:empty');
-                if (emptySlot) {
-                    emptySlot.textContent = playerName;
-                    emptySlot.closest('.player').classList.add('loser-player');
-                }
-            }
-        }
-    </script>
-</body>
-</html>
-
