@@ -11,8 +11,6 @@
             --text-color: #e6e6e6;
             --accent-color: #4cc9f0;
             --secondary-color: #3a7bd5;
-            --winner-color: #2ecc71;
-            --loser-color: #e74c3c;
             --match-border: #1e2a3a;
             --glow-color: rgba(76, 201, 240, 0.4);
         }
@@ -137,6 +135,13 @@
             display: flex;
             padding: 20px 0;
             transition: transform 0.3s ease;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Для Firefox */
+        }
+        
+        .bracket::-webkit-scrollbar {
+            display: none; /* Для Chrome/Safari */
         }
         
         .round {
@@ -170,7 +175,7 @@
         }
         
         .losers .round-title {
-            background: linear-gradient(135deg, var(--loser-color), #e67e22);
+            background: linear-gradient(135deg, #e74c3c, #e67e22);
         }
         
         .match {
@@ -196,11 +201,11 @@
         }
         
         .losers .match {
-            border-left-color: var(--loser-color);
+            border-left-color: #e74c3c;
         }
         
         .losers .match:before {
-            background: linear-gradient(90deg, var(--loser-color), transparent);
+            background: linear-gradient(90deg, #e74c3c, transparent);
         }
         
         .match:hover {
@@ -225,17 +230,7 @@
         }
         
         .losers .player:hover {
-            border-left-color: var(--loser-color);
-        }
-        
-        .player.winner {
-            background: rgba(46, 204, 113, 0.1);
-            border-left-color: var(--winner-color);
-        }
-        
-        .player.loser {
-            background: rgba(231, 76, 60, 0.1);
-            border-left-color: var(--loser-color);
+            border-left-color: #e74c3c;
         }
         
         .returning {
@@ -367,11 +362,11 @@
         }
         
         .losers-column h3 {
-            color: var(--loser-color);
+            color: #e74c3c;
         }
         
         .losers-column h3:after {
-            background: var(--loser-color);
+            background: #e74c3c;
         }
         
         .info-box ul {
@@ -393,7 +388,7 @@
         }
         
         .losers-column li:before {
-            color: var(--loser-color);
+            color: #e74c3c;
         }
         
         /* Адаптивность */
@@ -465,52 +460,52 @@
                     <div class="round">
                         <div class="round-title">1/24 финала (24 → 12)</div>
                         <div class="match">
-                            <div class="player winner">Игрок 1</div>
-                            <div class="player loser">Игрок 2</div>
+                            <div class="player">Игрок 1</div>
+                            <div class="player">Игрок 2</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 3</div>
-                            <div class="player loser">Игрок 4</div>
+                            <div class="player">Игрок 3</div>
+                            <div class="player">Игрок 4</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 5</div>
-                            <div class="player loser">Игрок 6</div>
+                            <div class="player">Игрок 5</div>
+                            <div class="player">Игрок 6</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 7</div>
-                            <div class="player loser">Игрок 8</div>
+                            <div class="player">Игрок 7</div>
+                            <div class="player">Игрок 8</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 9</div>
-                            <div class="player loser">Игрок 10</div>
+                            <div class="player">Игрок 9</div>
+                            <div class="player">Игрок 10</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 11</div>
-                            <div class="player loser">Игрок 12</div>
+                            <div class="player">Игрок 11</div>
+                            <div class="player">Игрок 12</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 13</div>
-                            <div class="player loser">Игрок 14</div>
+                            <div class="player">Игрок 13</div>
+                            <div class="player">Игрок 14</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 15</div>
-                            <div class="player loser">Игрок 16</div>
+                            <div class="player">Игрок 15</div>
+                            <div class="player">Игрок 16</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 17</div>
-                            <div class="player loser">Игрок 18</div>
+                            <div class="player">Игрок 17</div>
+                            <div class="player">Игрок 18</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 19</div>
-                            <div class="player loser">Игрок 20</div>
+                            <div class="player">Игрок 19</div>
+                            <div class="player">Игрок 20</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 21</div>
-                            <div class="player loser">Игрок 22</div>
+                            <div class="player">Игрок 21</div>
+                            <div class="player">Игрок 22</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 23</div>
-                            <div class="player loser">Игрок 24</div>
+                            <div class="player">Игрок 23</div>
+                            <div class="player">Игрок 24</div>
                         </div>
                     </div>
                     
@@ -518,28 +513,28 @@
                     <div class="round">
                         <div class="round-title">1/12 финала (12 → 6)</div>
                         <div class="match">
-                            <div class="player winner">Игрок 1</div>
-                            <div class="player loser">Игрок 3</div>
+                            <div class="player">Игрок 1</div>
+                            <div class="player">Игрок 3</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 5</div>
-                            <div class="player loser">Игрок 7</div>
+                            <div class="player">Игрок 5</div>
+                            <div class="player">Игрок 7</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 9</div>
-                            <div class="player loser">Игрок 11</div>
+                            <div class="player">Игрок 9</div>
+                            <div class="player">Игрок 11</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 13</div>
-                            <div class="player loser">Игрок 15</div>
+                            <div class="player">Игрок 13</div>
+                            <div class="player">Игрок 15</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 17</div>
-                            <div class="player loser">Игрок 19</div>
+                            <div class="player">Игрок 17</div>
+                            <div class="player">Игрок 19</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 21</div>
-                            <div class="player loser">Игрок 23</div>
+                            <div class="player">Игрок 21</div>
+                            <div class="player">Игрок 23</div>
                         </div>
                     </div>
                     
@@ -547,16 +542,16 @@
                     <div class="round">
                         <div class="round-title">1/6 финала (6 → 3)</div>
                         <div class="match">
-                            <div class="player winner">Игрок 1</div>
-                            <div class="player loser">Игрок 5</div>
+                            <div class="player">Игрок 1</div>
+                            <div class="player">Игрок 5</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 9</div>
-                            <div class="player loser">Игрок 13</div>
+                            <div class="player">Игрок 9</div>
+                            <div class="player">Игрок 13</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 17</div>
-                            <div class="player loser">Игрок 21</div>
+                            <div class="player">Игрок 17</div>
+                            <div class="player">Игрок 21</div>
                         </div>
                     </div>
                     
@@ -564,11 +559,11 @@
                     <div class="round">
                         <div class="round-title">1/3 финала (3 + 1 → 2)</div>
                         <div class="match">
-                            <div class="player winner">Игрок 1</div>
-                            <div class="player loser">Игрок 9</div>
+                            <div class="player">Игрок 1</div>
+                            <div class="player">Игрок 9</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 17</div>
+                            <div class="player">Игрок 17</div>
                             <div class="player returning">Победитель лузеров</div>
                         </div>
                     </div>
@@ -577,15 +572,15 @@
                     <div class="round">
                         <div class="round-title">ФИНАЛ</div>
                         <div class="match final-match">
-                            <div class="player winner">Игрок 1</div>
-                            <div class="player loser">Игрок 17</div>
+                            <div class="player">Игрок 1</div>
+                            <div class="player">Игрок 17</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="scroll-nav">
-                <button class="scroll-btn" onclick="scrollBracket('mainBracket', -250)">❮</button>
-                <button class="scroll-btn" onclick="scrollBracket('mainBracket', 250)">❯</button>
+                <button class="scroll-btn" onclick="document.getElementById('mainBracket').scrollBy({left: -250, behavior: 'smooth'})">❮</button>
+                <button class="scroll-btn" onclick="document.getElementById('mainBracket').scrollBy({left: 250, behavior: 'smooth'})">❯</button>
             </div>
         </div>
         
@@ -597,28 +592,28 @@
                     <div class="round">
                         <div class="round-title">Раунд 1 (12 → 6)</div>
                         <div class="match">
-                            <div class="player winner">Игрок 2</div>
-                            <div class="player loser">Игрок 4</div>
+                            <div class="player">Игрок 2</div>
+                            <div class="player">Игрок 4</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 6</div>
-                            <div class="player loser">Игрок 8</div>
+                            <div class="player">Игрок 6</div>
+                            <div class="player">Игрок 8</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 10</div>
-                            <div class="player loser">Игрок 12</div>
+                            <div class="player">Игрок 10</div>
+                            <div class="player">Игрок 12</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 14</div>
-                            <div class="player loser">Игрок 16</div>
+                            <div class="player">Игрок 14</div>
+                            <div class="player">Игрок 16</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 18</div>
-                            <div class="player loser">Игрок 20</div>
+                            <div class="player">Игрок 18</div>
+                            <div class="player">Игрок 20</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 22</div>
-                            <div class="player loser">Игрок 24</div>
+                            <div class="player">Игрок 22</div>
+                            <div class="player">Игрок 24</div>
                         </div>
                     </div>
                     
@@ -626,16 +621,16 @@
                     <div class="round">
                         <div class="round-title">Раунд 2 (6 → 3)</div>
                         <div class="match">
-                            <div class="player winner">Игрок 2</div>
-                            <div class="player loser">Игрок 6</div>
+                            <div class="player">Игрок 2</div>
+                            <div class="player">Игрок 6</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 10</div>
-                            <div class="player loser">Игрок 14</div>
+                            <div class="player">Игрок 10</div>
+                            <div class="player">Игрок 14</div>
                         </div>
                         <div class="match">
-                            <div class="player winner">Игрок 18</div>
-                            <div class="player loser">Игрок 22</div>
+                            <div class="player">Игрок 18</div>
+                            <div class="player">Игрок 22</div>
                         </div>
                     </div>
                     
@@ -643,9 +638,9 @@
                     <div class="round">
                         <div class="round-title">Финал лузеров (3 → 1)</div>
                         <div class="match">
-                            <div class="player winner">Игрок 2</div>
-                            <div class="player loser">Игрок 10</div>
-                            <div class="player loser">Игрок 18</div>
+                            <div class="player">Игрок 2</div>
+                            <div class="player">Игрок 10</div>
+                            <div class="player">Игрок 18</div>
                         </div>
                     </div>
                     
@@ -658,8 +653,8 @@
                 </div>
             </div>
             <div class="scroll-nav">
-                <button class="scroll-btn" onclick="scrollBracket('losersBracket', -250)">❮</button>
-                <button class="scroll-btn" onclick="scrollBracket('losersBracket', 250)">❯</button>
+                <button class="scroll-btn" onclick="document.getElementById('losersBracket').scrollBy({left: -250, behavior: 'smooth'})">❮</button>
+                <button class="scroll-btn" onclick="document.getElementById('losersBracket').scrollBy({left: 250, behavior: 'smooth'})">❯</button>
             </div>
         </div>
         
@@ -688,12 +683,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function scrollBracket(bracketId, amount) {
-            const bracket = document.getElementById(bracketId);
-            bracket.scrollBy({ left: amount, behavior: 'smooth' });
-        }
-    </script>
 </body>
 </html>
