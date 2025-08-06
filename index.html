@@ -6,33 +6,38 @@
     <title>Турнирная сетка 24 участника</title>
     <style>
         :root {
-            --bg-color: #1a1a2e;
-            --card-bg: #16213e;
+            --bg-color: #0a0a1a;
+            --card-bg: #0f1621;
             --text-color: #e6e6e6;
             --accent-color: #4cc9f0;
-            --secondary-color: #4895ef;
-            --winner-color: #4caf50;
-            --loser-color: #f44336;
-            --match-border: #2d4059;
+            --secondary-color: #3a7bd5;
+            --winner-color: #2ecc71;
+            --loser-color: #e74c3c;
+            --match-border: #1e2a3a;
+            --glow-color: rgba(76, 201, 240, 0.4);
         }
         
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
             padding: 20px;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(58, 123, 213, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(76, 201, 240, 0.1) 0%, transparent 50%);
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            overflow: hidden;
         }
         
         h1 {
@@ -40,16 +45,37 @@
             margin: 20px 0 30px;
             color: var(--accent-color);
             font-size: 2.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 10px var(--glow-color);
+            position: relative;
         }
         
-        /* Система вкладок без JS */
+        h1:after {
+            content: '';
+            display: block;
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+        
+        /* Система вкладок */
         .tabs {
             display: flex;
             justify-content: center;
             margin-bottom: 30px;
-            border-bottom: 2px solid var(--match-border);
-            padding-bottom: 10px;
+            position: relative;
+        }
+        
+        .tabs:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--match-border);
+            z-index: 0;
         }
         
         .tab {
@@ -57,25 +83,30 @@
         }
         
         .tab-label {
-            padding: 12px 25px;
+            padding: 12px 30px;
             margin: 0 5px;
             background: var(--card-bg);
             color: var(--accent-color);
-            border-radius: 5px 5px 0 0;
+            border-radius: 8px 8px 0 0;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            border-bottom: none;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 -5px 10px rgba(0,0,0,0.1);
         }
         
         .tab-label:hover {
             background: var(--secondary-color);
             color: white;
+            transform: translateY(-2px);
         }
         
         #tab1:checked ~ .tabs .tab-label[for="tab1"],
         #tab2:checked ~ .tabs .tab-label[for="tab2"] {
-            background: var(--accent-color);
+            background: linear-gradient(180deg, var(--accent-color), var(--secondary-color));
             color: #111;
             border-color: var(--accent-color);
         }
@@ -91,35 +122,55 @@
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         /* Стили для сетки */
+        .bracket-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
         .bracket {
             display: flex;
-            overflow-x: auto;
             padding: 20px 0;
+            transition: transform 0.3s ease;
         }
         
         .round {
             min-width: 250px;
-            margin-right: 30px;
+            margin-right: 20px;
+            flex-shrink: 0;
         }
         
         .round-title {
             background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
             color: #111;
-            padding: 10px 15px;
-            border-radius: 5px;
+            padding: 12px 15px;
+            border-radius: 6px;
             font-weight: bold;
             text-align: center;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px var(--glow-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .round-title:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+            pointer-events: none;
         }
         
         .losers .round-title {
-            background: linear-gradient(135deg, var(--loser-color), #ff6b6b);
+            background: linear-gradient(135deg, var(--loser-color), #e67e22);
         }
         
         .match {
@@ -127,77 +178,269 @@
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             border-left: 4px solid var(--accent-color);
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .match:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-color), transparent);
         }
         
         .losers .match {
             border-left-color: var(--loser-color);
         }
         
+        .losers .match:before {
+            background: linear-gradient(90deg, var(--loser-color), transparent);
+        }
+        
         .match:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
         
         .player {
-            padding: 12px;
+            padding: 12px 15px;
             margin: 8px 0;
             background: rgba(255,255,255,0.05);
-            border-radius: 5px;
+            border-radius: 6px;
             position: relative;
             transition: all 0.2s ease;
+            border-left: 3px solid transparent;
         }
         
         .player:hover {
             background: rgba(255,255,255,0.1);
             transform: translateX(5px);
+            border-left-color: var(--accent-color);
         }
         
-        .player:before {
-            content: '';
-            position: absolute;
-            left: -4px;
-            top: 0;
-            height: 100%;
-            width: 4px;
-            background: var(--accent-color);
+        .losers .player:hover {
+            border-left-color: var(--loser-color);
         }
         
-        .losers .player:before {
-            background: var(--loser-color);
+        .player.winner {
+            background: rgba(46, 204, 113, 0.1);
+            border-left-color: var(--winner-color);
+        }
+        
+        .player.loser {
+            background: rgba(231, 76, 60, 0.1);
+            border-left-color: var(--loser-color);
         }
         
         .returning {
             animation: pulse 2s infinite;
+            position: relative;
+        }
+        
+        .returning:after {
+            content: '↻';
+            position: absolute;
+            right: 10px;
+            color: var(--accent-color);
         }
         
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0.4); }
+            0% { box-shadow: 0 0 0 0 var(--glow-color); }
             70% { box-shadow: 0 0 0 10px rgba(76, 201, 240, 0); }
             100% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0); }
         }
         
         .final-match {
             border: 2px solid gold;
-            background: linear-gradient(135deg, #16213e, #0f3460);
+            background: linear-gradient(135deg, #0f1621, #1a2a3a);
             animation: glow 2s infinite alternate;
+            position: relative;
+        }
+        
+        .final-match:before {
+            content: '🏆';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            opacity: 0.3;
         }
         
         @keyframes glow {
-            from { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
-            to { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+            from { box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+            to { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+        }
+        
+        /* Навигация для скролла */
+        .scroll-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .scroll-btn {
+            background: var(--card-bg);
+            border: none;
+            color: var(--accent-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .scroll-btn:hover {
+            background: var(--secondary-color);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        /* Информационный блок */
+        .info-box {
+            margin-top: 40px;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-box:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-color), var(--secondary-color));
+        }
+        
+        .info-box h2 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .info-columns {
+            columns: 2;
+            gap: 30px;
+        }
+        
+        .info-column {
+            break-inside: avoid;
+            margin-bottom: 20px;
+        }
+        
+        .info-column h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .info-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 70%;
+            width: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .losers-column h3 {
+            color: var(--loser-color);
+        }
+        
+        .losers-column h3:after {
+            background: var(--loser-color);
+        }
+        
+        .info-box ul {
+            list-style-type: none;
+        }
+        
+        .info-box li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .info-box li:before {
+            content: '•';
+            position: absolute;
+            left: 10px;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .losers-column li:before {
+            color: var(--loser-color);
         }
         
         /* Адаптивность */
+        @media (max-width: 1024px) {
+            .round {
+                min-width: 220px;
+                margin-right: 15px;
+            }
+            
+            .info-columns {
+                columns: 1;
+            }
+        }
+        
         @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tab-label {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
             .round {
                 min-width: 200px;
             }
             
-            .tab-label {
-                padding: 10px 15px;
+            .player {
+                padding: 10px 12px;
                 font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab-label {
+                margin-bottom: 5px;
+                border-radius: 6px;
+                border: 2px solid var(--match-border);
+            }
+            
+            .round {
+                min-width: 180px;
             }
         }
     </style>
@@ -216,223 +459,241 @@
         
         <!-- Основная сетка -->
         <div class="tab-content" id="content1">
-            <div class="bracket">
-                <!-- 1/24 финала -->
-                <div class="round">
-                    <div class="round-title">1/24 финала (24 → 12)</div>
-                    <div class="match">
-                        <div class="player">Игрок 1</div>
-                        <div class="player">Игрок 2</div>
+            <div class="bracket-container">
+                <div class="bracket" id="mainBracket">
+                    <!-- 1/24 финала -->
+                    <div class="round">
+                        <div class="round-title">1/24 финала (24 → 12)</div>
+                        <div class="match">
+                            <div class="player winner">Игрок 1</div>
+                            <div class="player loser">Игрок 2</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 3</div>
+                            <div class="player loser">Игрок 4</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 5</div>
+                            <div class="player loser">Игрок 6</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 7</div>
+                            <div class="player loser">Игрок 8</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 9</div>
+                            <div class="player loser">Игрок 10</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 11</div>
+                            <div class="player loser">Игрок 12</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 13</div>
+                            <div class="player loser">Игрок 14</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 15</div>
+                            <div class="player loser">Игрок 16</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 17</div>
+                            <div class="player loser">Игрок 18</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 19</div>
+                            <div class="player loser">Игрок 20</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 21</div>
+                            <div class="player loser">Игрок 22</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 23</div>
+                            <div class="player loser">Игрок 24</div>
+                        </div>
                     </div>
-                    <div class="match">
-                        <div class="player">Игрок 3</div>
-                        <div class="player">Игрок 4</div>
+                    
+                    <!-- 1/12 финала -->
+                    <div class="round">
+                        <div class="round-title">1/12 финала (12 → 6)</div>
+                        <div class="match">
+                            <div class="player winner">Игрок 1</div>
+                            <div class="player loser">Игрок 3</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 5</div>
+                            <div class="player loser">Игрок 7</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 9</div>
+                            <div class="player loser">Игрок 11</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 13</div>
+                            <div class="player loser">Игрок 15</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 17</div>
+                            <div class="player loser">Игрок 19</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 21</div>
+                            <div class="player loser">Игрок 23</div>
+                        </div>
                     </div>
-                    <div class="match">
-                        <div class="player">Игрок 5</div>
-                        <div class="player">Игрок 6</div>
+                    
+                    <!-- 1/6 финала -->
+                    <div class="round">
+                        <div class="round-title">1/6 финала (6 → 3)</div>
+                        <div class="match">
+                            <div class="player winner">Игрок 1</div>
+                            <div class="player loser">Игрок 5</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 9</div>
+                            <div class="player loser">Игрок 13</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 17</div>
+                            <div class="player loser">Игрок 21</div>
+                        </div>
                     </div>
-                    <div class="match">
-                        <div class="player">Игрок 7</div>
-                        <div class="player">Игрок 8</div>
+                    
+                    <!-- 1/3 финала -->
+                    <div class="round">
+                        <div class="round-title">1/3 финала (3 + 1 → 2)</div>
+                        <div class="match">
+                            <div class="player winner">Игрок 1</div>
+                            <div class="player loser">Игрок 9</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 17</div>
+                            <div class="player returning">Победитель лузеров</div>
+                        </div>
                     </div>
-                    <div class="match">
-                        <div class="player">Игрок 9</div>
-                        <div class="player">Игрок 10</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Игрок 11</div>
-                        <div class="player">Игрок 12</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Игрок 1</div>
-                        <div class="player">Игрок 2</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Игрок 3</div>
-                        <div class="player">Игрок 4</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Игрок 5</div>
-                        <div class="player">Игрок 6</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Игрок 7</div>
-                        <div class="player">Игрок 8</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Игрок 9</div>
-                        <div class="player">Игрок 10</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Игрок 11</div>
-                        <div class="player">Игрок 12</div>
+                    
+                    <!-- Финал -->
+                    <div class="round">
+                        <div class="round-title">ФИНАЛ</div>
+                        <div class="match final-match">
+                            <div class="player winner">Игрок 1</div>
+                            <div class="player loser">Игрок 17</div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- 1/12 финала -->
-                <div class="round">
-                    <div class="round-title">1/12 финала (12 → 6)</div>
-                    <div class="match">
-                        <div class="player">Победитель 1</div>
-                        <div class="player">Победитель 2</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Победитель 3</div>
-                        <div class="player">Победитель 4</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Победитель 5</div>
-                        <div class="player">Победитель 6</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Победитель 1</div>
-                        <div class="player">Победитель 2</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Победитель 3</div>
-                        <div class="player">Победитель 4</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Победитель 5</div>
-                        <div class="player">Победитель 6</div>
-                    </div>
-                </div>
-                
-                <!-- 1/6 финала -->
-                <div class="round">
-                    <div class="round-title">1/6 финала (6 → 3)</div>
-                    <div class="match">
-                        <div class="player">Победитель 1/12 1</div>
-                        <div class="player">Победитель 1/12 2</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Победитель 1/12 3</div>
-                        <div class="player">Победитель 1/12 4</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Победитель 1/12 3</div>
-                        <div class="player">Победитель 1/12 4</div>
-                    </div>
-                </div>
-                
-                <!-- 1/3 финала -->
-                <div class="round">
-                    <div class="round-title">1/3 финала (3 + 1 → 2)</div>
-                    <div class="match">
-                        <div class="player">Победитель 1/6 1</div>
-                        <div class="player">Победитель 1/6 2</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Победитель 1/6 3</div>
-                        <div class="player returning">Победитель лузеров</div>
-                    </div>
-                </div>
-                
-                <!-- Финал -->
-                <div class="round">
-                    <div class="round-title">ФИНАЛ</div>
-                    <div class="match final-match">
-                        <div class="player">Финалист 1</div>
-                        <div class="player">Финалист 2</div>
-                    </div>
-                </div>
+            </div>
+            <div class="scroll-nav">
+                <button class="scroll-btn" onclick="scrollBracket('mainBracket', -250)">❮</button>
+                <button class="scroll-btn" onclick="scrollBracket('mainBracket', 250)">❯</button>
             </div>
         </div>
         
         <!-- Сетка лузеров -->
         <div class="tab-content losers" id="content2">
-            <div class="bracket">
-                <!-- Первый раунд лузеров -->
-                <div class="round">
-                    <div class="round-title">Раунд 1 (12 → 6)</div>
-                    <div class="match">
-                        <div class="player">Проигравший 1</div>
-                        <div class="player">Проигравший 2</div>
+            <div class="bracket-container">
+                <div class="bracket" id="losersBracket">
+                    <!-- Первый раунд лузеров -->
+                    <div class="round">
+                        <div class="round-title">Раунд 1 (12 → 6)</div>
+                        <div class="match">
+                            <div class="player winner">Игрок 2</div>
+                            <div class="player loser">Игрок 4</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 6</div>
+                            <div class="player loser">Игрок 8</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 10</div>
+                            <div class="player loser">Игрок 12</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 14</div>
+                            <div class="player loser">Игрок 16</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 18</div>
+                            <div class="player loser">Игрок 20</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 22</div>
+                            <div class="player loser">Игрок 24</div>
+                        </div>
                     </div>
-                    <div class="match">
-                        <div class="player">Проигравший 3</div>
-                        <div class="player">Проигравший 4</div>
+                    
+                    <!-- Второй раунд лузеров -->
+                    <div class="round">
+                        <div class="round-title">Раунд 2 (6 → 3)</div>
+                        <div class="match">
+                            <div class="player winner">Игрок 2</div>
+                            <div class="player loser">Игрок 6</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 10</div>
+                            <div class="player loser">Игрок 14</div>
+                        </div>
+                        <div class="match">
+                            <div class="player winner">Игрок 18</div>
+                            <div class="player loser">Игрок 22</div>
+                        </div>
                     </div>
-                    <div class="match">
-                        <div class="player">Проигравший 5</div>
-                        <div class="player">Проигравший 6</div>
+                    
+                    <!-- Финал лузеров -->
+                    <div class="round">
+                        <div class="round-title">Финал лузеров (3 → 1)</div>
+                        <div class="match">
+                            <div class="player winner">Игрок 2</div>
+                            <div class="player loser">Игрок 10</div>
+                            <div class="player loser">Игрок 18</div>
+                        </div>
                     </div>
-                    <div class="match">
-                        <div class="player">Проигравший 1</div>
-                        <div class="player">Проигравший 2</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Проигравший 3</div>
-                        <div class="player">Проигравший 4</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Проигравший 5</div>
-                        <div class="player">Проигравший 6</div>
-                    </div>
-                </div>
-                
-                <!-- Второй раунд лузеров -->
-                <div class="round">
-                    <div class="round-title">Раунд 2 (6 → 3)</div>
-                    <div class="match">
-                        <div class="player">Победитель Л1</div>
-                        <div class="player">Победитель Л2</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Победитель Л3</div>
-                        <div class="player">Победитель Л4</div>
-                    </div>
-                    <div class="match">
-                        <div class="player">Победитель Л3</div>
-                        <div class="player">Победитель Л4</div>
-                    </div>
-                </div>
-                
-                <!-- Финал лузеров -->
-                <div class="round">
-                    <div class="round-title">Финал лузеров (3 → 1)</div>
-                    <div class="match">
-                        <div class="player">Победитель Л5</div>
-                        <div class="player">Победитель Л6</div>
-                        <div class="player">Победитель Л7</div>
-                    </div>
-                </div>
-                <div class="round">
-                    <div class="round-title">ФИНАЛ</div>
-                    <div class="match final-match">
-                        <div class="player">Финалист</div>
+                    
+                    <div class="round">
+                        <div class="round-title">ФИНАЛ ЛУЗЕРОВ</div>
+                        <div class="match final-match">
+                            <div class="player returning">Игрок 2</div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="scroll-nav">
+                <button class="scroll-btn" onclick="scrollBracket('losersBracket', -250)">❮</button>
+                <button class="scroll-btn" onclick="scrollBracket('losersBracket', 250)">❯</button>
+            </div>
         </div>
         
-        <div style="margin-top: 40px; padding: 20px; background: var(--card-bg); border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-            <h2 style="color: var(--accent-color); margin-bottom: 15px; text-align: center;">Как работает система</h2>
-            <div style="columns: 2; gap: 20px;">
-                <div>
-                    <h3 style="color: var(--accent-color); margin-bottom: 10px;">Основная сетка</h3>
-                    <ul style="list-style-type: none;">
-                        <li>• 1/24: 24 игрока → 12 победителей</li>
-                        <li>• 1/12: 12 игроков → 6 победителей</li>
-                        <li>• 1/6: 6 игроков → 3 победителя</li>
-                        <li>• 1/3: 3 + 1 из лузеров → 2 финалиста</li>
-                        <li>• Финал: 2 игрока → чемпион</li>
+        <div class="info-box">
+            <h2>Как работает система</h2>
+            <div class="info-columns">
+                <div class="info-column">
+                    <h3>Основная сетка</h3>
+                    <ul>
+                        <li>1/24: 24 игрока → 12 победителей</li>
+                        <li>1/12: 12 игроков → 6 победителей</li>
+                        <li>1/6: 6 игроков → 3 победителя</li>
+                        <li>1/3: 3 + 1 из лузеров → 2 финалиста</li>
+                        <li>Финал: 2 игрока → чемпион</li>
                     </ul>
                 </div>
-                <div>
-                    <h3 style="color: var(--loser-color); margin-bottom: 10px;">Сетка лузеров</h3>
-                    <ul style="list-style-type: none;">
-                        <li>• Раунд 1: 12 проигравших → 6</li>
-                        <li>• Раунд 2: 6 игроков → 3</li>
-                        <li>• Финал: 3 → 1 победитель</li>
-                        <li>• Победитель возвращается в 1/3 финала</li>
+                <div class="info-column losers-column">
+                    <h3>Сетка лузеров</h3>
+                    <ul>
+                        <li>Раунд 1: 12 проигравших → 6</li>
+                        <li>Раунд 2: 6 игроков → 3</li>
+                        <li>Финал: 3 → 1 победитель</li>
+                        <li>Победитель возвращается в 1/3 финала</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function scrollBracket(bracketId, amount) {
+            const bracket = document.getElementById(bracketId);
+            bracket.scrollBy({ left: amount, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
-
-
