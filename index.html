@@ -657,44 +657,44 @@
         }
 
         async function loadDataFromTable() {
-            if (API_URL.includes("ТВОЙ_ХЭШ")) {
-                console.log("Sheety API URL не настроен. Показываем стандартные имена.");
-                return; 
-            }
+    if (API_URL.includes("ТВОЙ_ХЭШ")) {
+        console.log("Sheety API URL не настроен. Показываем стандартные имена.");
+        return; 
+    }
 
-            try {
-                const response = await fetch(API_URL);
-                const data = await response.json();
-                const matches = data.matches || [];
+    try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        
+        // Магия тут: Sheety переводит кириллицу "Лист1" в "лист1" с маленькой буквы
+        const matches = data["лист1"] || [];
 
-                matches.forEach(m => {
-                    const matchElement = document.getElementById(`match-${m.id}`);
-                    
-                    if (matchElement) {
-                        const playerElements = matchElement.querySelectorAll('.player');
-                        
-                        if (playerElements.length >= 2) {
-                            // Обновляем имена игроков
-                            playerElements[0].textContent = m.player1 || '—';
-                            playerElements[1].textContent = m.player2 || '—';
+        matches.forEach(m => {
+            const matchElement = document.getElementById(`match-${m.id}`);
+            
+            if (matchElement) {
+                const playerElements = matchElement.querySelectorAll('.player');
+                
+                if (playerElements.length >= 2) {
+                    // Подтягиваем данные из твоих колонок player1 и player2
+                    playerElements[0].textContent = m.player1 || '—';
+                    playerElements[1].textContent = m.player2 || '—';
 
-                            // Очищаем прошлую подсветку победителей
-                            playerElements[0].classList.remove('winner-highlight');
-                            playerElements[1].classList.remove('winner-highlight');
+                    playerElements[0].classList.remove('winner-highlight');
+                    playerElements[1].classList.remove('winner-highlight');
 
-                            // Проверяем, записан ли победитель в таблице
-                            if (m.winner && m.winner.trim() === m.player1?.trim()) {
-                                playerElements[0].classList.add('winner-highlight');
-                            } else if (m.winner && m.winner.trim() === m.player2?.trim()) {
-                                playerElements[1].classList.add('winner-highlight');
-                            }
-                        }
+                    if (m.winner && m.winner.trim() === m.player1?.trim()) {
+                        playerElements[0].classList.add('winner-highlight');
+                    } else if (m.winner && m.winner.trim() === m.player2?.trim()) {
+                        playerElements[1].classList.add('winner-highlight');
                     }
-                });
-            } catch (error) {
-                console.error("Ошибка при получении данных Sheety:", error);
+                }
             }
-        }
+        });
+    } catch (error) {
+        console.error("Ошибка при получении данных Sheety:", error);
+    }
+}
 
         // Запуск при открытии страницы
         autoAssignMatchIds();
