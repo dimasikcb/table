@@ -646,15 +646,13 @@
 <script>
         const API_URL = "https://api.sheety.co/476209bbc3bc43d3df2be3ea4f33f395/bd/matches"; 
 
-        // Функция раздельно и правильно нумерует основную сетку и лузеров
+        // Нумерация карточек на сайте строго по порядку
         function autoAssignMatchIds() {
-            // Нумеруем основную сетку: match-1, match-2 ...
             const mainMatches = document.querySelectorAll('#mainBracket .match');
             mainMatches.forEach((match, index) => {
                 match.id = `match-${index + 1}`;
             });
 
-            // Нумеруем сетку лузеров отдельным списком: loser-1, loser-2 ...
             const losersMatches = document.querySelectorAll('#losersBracket .match');
             losersMatches.forEach((match, index) => {
                 match.id = `loser-${index + 1}`;
@@ -668,7 +666,6 @@
                 const response = await fetch(API_URL);
                 const data = await response.json();
                 
-                // Умное получение массива матчей без дублирования переменных
                 let matchesArray = [];
                 if (data.matches) {
                     matchesArray = data.matches;
@@ -678,29 +675,16 @@
                 }
 
                 matchesArray.forEach(m => {
-                    // Ищем элемент матча (это сработает для основной сетки от 1 до 24)
+                    // Ищем карточку матча по ID
                     const matchElement = document.getElementById(`match-${m.id}`);
                     
                     if (matchElement) {
                         const playerElements = matchElement.querySelectorAll('.player');
                         
                         if (playerElements.length >= 2) {
-                            // Если в ячейке таблицы написано "Игрок Х" или "Победитель Х", 
-                            // и при этом на сайте РУЧКАМИ в HTML написано что-то другое (например, "Победитель лузеров"),
-                            // то скрипт не будет затирать красивый текст дефолтным из таблицы.
-                            
-                            const t1 = m.player1 ? m.player1.trim() : '';
-                            const t2 = m.player2 ? m.player2.trim() : '';
-
-                            // Вставляем имя первого игрока, если оно заполнено реальным ником
-                            if (t1 && !t1.startsWith("Игрок") && !t1.startsWith("Победитель") && !t1.startsWith("Финалист")) {
-                                playerElements[0].textContent = t1;
-                            }
-                            
-                            // Вставляем имя второго игрока
-                            if (t2 && !t2.startsWith("Игрок") && !t2.startsWith("Победитель") && !t2.startsWith("Финалист")) {
-                                playerElements[1].textContent = t2;
-                            }
+                            // Просто выводим то, что написано в таблице для этой карточки, без лишних фильтров
+                            playerElements[0].textContent = m.player1 || '—';
+                            playerElements[1].textContent = m.player2 || '—';
 
                             // Сброс и логика подсветки победителя
                             playerElements[0].classList.remove('winner-highlight');
@@ -719,11 +703,8 @@
             }
         }
 
-        // Запуск системы
         autoAssignMatchIds();
         loadDataFromTable();
-
-        // Автообновление данных каждые 30 секунд
         setInterval(loadDataFromTable, 30000);
 </script>
 </body>
