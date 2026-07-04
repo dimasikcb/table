@@ -646,15 +646,15 @@
 <script>
         const API_URL = "https://api.sheety.co/476209bbc3bc43d3df2be3ea4f33f395/bd/matches"; 
 
-        // Функция теперь раздельно и правильно нумерует основную сетку и лузеров
+        // Функция раздельно и правильно нумерует основную сетку и лузеров
         function autoAssignMatchIds() {
-            // Нумеруем основную сетку: match-1, match-2 ... match-24
+            // Нумеруем основную сетку: match-1, match-2 ...
             const mainMatches = document.querySelectorAll('#mainBracket .match');
             mainMatches.forEach((match, index) => {
                 match.id = `match-${index + 1}`;
             });
 
-            // Нумеруем сетку лузеров отдельным списком: loser-1, loser-2 ... loser-11
+            // Нумеруем сетку лузеров отдельным списком: loser-1, loser-2 ...
             const losersMatches = document.querySelectorAll('#losersBracket .match');
             losersMatches.forEach((match, index) => {
                 match.id = `loser-${index + 1}`;
@@ -668,10 +668,16 @@
                 const response = await fetch(API_URL);
                 const data = await response.json();
                 
-                const firstKey = Object.keys(data)[0];
-                const matches = Array.isArray(data) ? data : (data[firstKey] || []);
+                // Умное получение массива матчей без дублирования переменных
+                let matchesArray = [];
+                if (data.matches) {
+                    matchesArray = data.matches;
+                } else {
+                    const firstKey = Object.keys(data)[0];
+                    matchesArray = Array.isArray(data) ? data : (data[firstKey] || []);
+                }
 
-                matches.forEach(m => {
+                matchesArray.forEach(m => {
                     // Ищем элемент матча (это сработает для основной сетки от 1 до 24)
                     const matchElement = document.getElementById(`match-${m.id}`);
                     
@@ -719,6 +725,6 @@
 
         // Автообновление данных каждые 30 секунд
         setInterval(loadDataFromTable, 30000);
-    </script>
+</script>
 </body>
 </html>
