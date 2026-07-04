@@ -1,82 +1,38 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Турнирная сетка</title>
     <style>
-        body { background: #0a0a1a; color: #fff; font-family: sans-serif; padding: 20px; }
-        .bracket { display: flex; gap: 20px; overflow-x: auto; padding: 20px; }
-        .round { min-width: 200px; }
-        .match { background: #0f1621; padding: 10px; margin-bottom: 15px; border-left: 4px solid #4cc9f0; border-radius: 5px; }
-        .player { padding: 5px; background: rgba(255,255,255,0.05); margin: 2px 0; border-radius: 3px; }
-        .winner-highlight { border-left: 3px solid #10b981; background: rgba(16, 185, 129, 0.15); font-weight: bold; }
+        .match { background: #16202c; padding: 10px; margin: 5px; border-left: 4px solid #4cc9f0; color: white; width: 200px; }
+        .player { padding: 5px; border-bottom: 1px solid #333; }
     </style>
 </head>
 <body>
-    <h1>Турнирная сетка</h1>
-    <div class="bracket" id="bracket">
-        <div class="round">
-            <h3>Раунд 1</h3>
-            <div class="match" id="match-1"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-2"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-3"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-4"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-5"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-6"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-7"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-8"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-9"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-10"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-11"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-12"><div class="player">—</div><div class="player">—</div></div>
-        </div>
-        <div class="round">
-            <h3>Раунд 2</h3>
-            <div class="match" id="match-13"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-14"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-15"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-16"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-17"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-18"><div class="player">—</div><div class="player">—</div></div>
-        </div>
-        <div class="round">
-            <h3>Раунд 3</h3>
-            <div class="match" id="match-19"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-20"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-21"><div class="player">—</div><div class="player">—</div></div>
-        </div>
-        <div class="round">
-            <h3>Финал</h3>
-            <div class="match" id="match-22"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-23"><div class="player">—</div><div class="player">—</div></div>
-            <div class="match" id="match-24"><div class="player">—</div><div class="player">—</div></div>
-        </div>
-    </div>
+
+    <!-- Всего 8 матчей для теста -->
+    <div id="match-1" class="match"><div class="player">—</div><div class="player">—</div></div>
+    <div id="match-2" class="match"><div class="player">—</div><div class="player">—</div></div>
+    <div id="match-3" class="match"><div class="player">—</div><div class="player">—</div></div>
+    <div id="match-4" class="match"><div class="player">—</div><div class="player">—</div></div>
+    <div id="match-5" class="match"><div class="player">—</div><div class="player">—</div></div>
+    <div id="match-6" class="match"><div class="player">—</div><div class="player">—</div></div>
+    <div id="match-7" class="match"><div class="player">—</div><div class="player">—</div></div>
+    <div id="match-8" class="match"><div class="player">—</div><div class="player">—</div></div>
 
     <script>
-        const API_URL = "https://api.sheety.co/476209bbc3bc43d3df2be3ea4f33f395/bd/matches";
-
-        async function updateBracket() {
-            try {
-                const res = await fetch(API_URL);
-                const data = await res.json();
-                data.matches.forEach(m => {
-                    const el = document.getElementById(`match-${m.id}`);
-                    if (el) {
-                        const p = el.querySelectorAll('.player');
-                        if (m.player1) p[0].textContent = m.player1;
-                        if (m.player2) p[1].textContent = m.player2;
-                        
-                        p.forEach(x => x.classList.remove('winner-highlight'));
-                        if (m.winner) {
-                            p.forEach(x => { if (x.textContent.trim() === m.winner.trim()) x.classList.add('winner-highlight'); });
-                        }
-                    }
-                });
-            } catch (e) { console.error("Ошибка сети"); }
+        async function update() {
+            const res = await fetch("https://api.sheety.co/476209bbc3bc43d3df2be3ea4f33f395/bd/matches");
+            const data = await res.json();
+            data.matches.forEach(m => {
+                const el = document.getElementById(`match-${m.id}`);
+                if (el) {
+                    const p = el.querySelectorAll('.player');
+                    p[0].textContent = m.player1 || '—';
+                    p[1].textContent = m.player2 || '—';
+                }
+            });
         }
-        updateBracket();
-        setInterval(updateBracket, 5000);
+        update();
+        setInterval(update, 5000);
     </script>
 </body>
 </html>
