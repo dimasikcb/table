@@ -666,10 +666,9 @@
             const response = await fetch(API_URL);
             const data = await response.json();
             
-            // Автоматически берем первую попавшуюся вкладку из ответа Sheety, 
-            // чтобы не зависеть от названий "Лист1", "matches" или "matches2"
-            const firstKey = Object.keys(data)[0];
-            const matches = data[firstKey] || [];
+            // Теперь берём строго твою вкладку "matches"
+            // Sheety автоматически переводит её в нижний регистр, так что пишем m.matches
+            const matches = data.matches || [];
 
             matches.forEach(m => {
                 const matchElement = document.getElementById(`match-${m.id}`);
@@ -678,14 +677,15 @@
                     const playerElements = matchElement.querySelectorAll('.player');
                     
                     if (playerElements.length >= 2) {
-                        // Меняем имена (используем свойства player1 и player2 из таблицы)
+                        // Заполняем имена из колонок player1 и player2
                         playerElements[0].textContent = m.player1 || '—';
                         playerElements[1].textContent = m.player2 || '—';
 
-                        // Сброс и проверка победителя
+                        // Сброс старой подсветки победителей
                         playerElements[0].classList.remove('winner-highlight');
                         playerElements[1].classList.remove('winner-highlight');
 
+                        // Проверка победителя
                         if (m.winner && m.winner.trim() === m.player1?.trim()) {
                             playerElements[0].classList.add('winner-highlight');
                         } else if (m.winner && m.winner.trim() === m.player2?.trim()) {
