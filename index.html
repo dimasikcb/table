@@ -1,38 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <title>Турнирная сетка</title>
     <style>
-        .match { background: #16202c; padding: 10px; margin: 5px; border-left: 4px solid #4cc9f0; color: white; width: 200px; }
-        .player { padding: 5px; border-bottom: 1px solid #333; }
+        body { background: #0a0a1a; color: #fff; font-family: sans-serif; padding: 20px; }
+        .bracket { display: flex; gap: 15px; overflow-x: auto; }
+        .round { min-width: 180px; }
+        .match { background: #16202c; padding: 10px; margin-bottom: 10px; border-left: 4px solid #4cc9f0; border-radius: 4px; font-size: 13px; }
+        .player { padding: 4px; background: rgba(255,255,255,0.05); margin: 2px 0; border-radius: 2px; }
+        .winner-highlight { border-left: 4px solid #10b981; background: rgba(16, 185, 129, 0.1); font-weight: bold; }
+        h3 { color: #4cc9f0; text-align: center; }
     </style>
 </head>
 <body>
-
-    <!-- Всего 8 матчей для теста -->
-    <div id="match-1" class="match"><div class="player">—</div><div class="player">—</div></div>
-    <div id="match-2" class="match"><div class="player">—</div><div class="player">—</div></div>
-    <div id="match-3" class="match"><div class="player">—</div><div class="player">—</div></div>
-    <div id="match-4" class="match"><div class="player">—</div><div class="player">—</div></div>
-    <div id="match-5" class="match"><div class="player">—</div><div class="player">—</div></div>
-    <div id="match-6" class="match"><div class="player">—</div><div class="player">—</div></div>
-    <div id="match-7" class="match"><div class="player">—</div><div class="player">—</div></div>
-    <div id="match-8" class="match"><div class="player">—</div><div class="player">—</div></div>
+    <div class="bracket">
+        <div class="round"><h3>Раунд 1</h3>
+            <script>for(let i=1; i<=12; i++) document.write(`<div class="match" id="match-${i}"><div class="player">—</div><div class="player">—</div></div>`);</script>
+        </div>
+        <div class="round"><h3>Раунд 2</h3>
+            <script>for(let i=13; i<=18; i++) document.write(`<div class="match" id="match-${i}"><div class="player">—</div><div class="player">—</div></div>`);</script>
+        </div>
+        <div class="round"><h3>Раунд 3</h3>
+            <script>for(let i=19; i<=21; i++) document.write(`<div class="match" id="match-${i}"><div class="player">—</div><div class="player">—</div></div>`);</script>
+        </div>
+        <div class="round"><h3>Финал</h3>
+            <script>for(let i=22; i<=24; i++) document.write(`<div class="match" id="match-${i}"><div class="player">—</div><div class="player">—</div></div>`);</script>
+        </div>
+    </div>
 
     <script>
-        async function update() {
-            const res = await fetch("https://api.sheety.co/476209bbc3bc43d3df2be3ea4f33f395/bd/matches");
-            const data = await res.json();
-            data.matches.forEach(m => {
-                const el = document.getElementById(`match-${m.id}`);
-                if (el) {
-                    const p = el.querySelectorAll('.player');
-                    p[0].textContent = m.player1 || '—';
-                    p[1].textContent = m.player2 || '—';
-                }
-            });
+        async function sync() {
+            try {
+                const res = await fetch("https://api.sheety.co/476209bbc3bc43d3df2be3ea4f33f395/bd/matches");
+                const data = await res.json();
+                data.matches.forEach(m => {
+                    const el = document.getElementById(`match-${m.id}`);
+                    if (el) {
+                        const p = el.querySelectorAll('.player');
+                        p[0].textContent = m.player1 || '—';
+                        p[1].textContent = m.player2 || '—';
+                        p.forEach(x => x.classList.remove('winner-highlight'));
+                        if (m.winner) {
+                            p.forEach(x => { if (x.textContent.trim() === m.winner.trim()) x.classList.add('winner-highlight'); });
+                        }
+                    }
+                });
+            } catch(e) { console.error("Ошибка сети"); }
         }
-        update();
-        setInterval(update, 5000);
+        sync();
+        setInterval(sync, 5000);
     </script>
 </body>
 </html>
