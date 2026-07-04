@@ -227,6 +227,13 @@
             border-left-color: #e74c3c;
         }
         
+        /* Стили подсветки победителя */
+        .player.winner-highlight {
+            border-left: 3px solid #10b981 !important;
+            background: rgba(16, 185, 129, 0.15);
+            font-weight: bold;
+        }
+        
         .returning {
             animation: pulse 2s infinite;
             position: relative;
@@ -422,11 +429,9 @@
             <label for="tab2" class="tab-label">Сетка лузеров</label>
         </div>
         
-        <!-- Основная сетка -->
         <div class="tab-content" id="content1">
             <div class="bracket-container">
                 <div class="bracket" id="mainBracket">
-                    <!-- 1/24 финала -->
                     <div class="round">
                         <div class="round-title">1/24 финала (24 → 12)</div>
                         <div class="match">
@@ -479,7 +484,6 @@
                         </div>
                     </div>
                     
-                    <!-- 1/12 финала -->
                     <div class="round">
                         <div class="round-title">1/12 финала (12 → 6)</div>
                         <div class="match">
@@ -508,7 +512,6 @@
                         </div>
                     </div>
                     
-                    <!-- 1/6 финала -->
                     <div class="round">
                         <div class="round-title">1/6 финала (6 → 3)</div>
                         <div class="match">
@@ -525,7 +528,6 @@
                         </div>
                     </div>
                     
-                    <!-- 1/3 финала -->
                     <div class="round">
                         <div class="round-title">1/3 финала (3 + 1 → 2)</div>
                         <div class="match">
@@ -538,7 +540,6 @@
                         </div>
                     </div>
                     
-                    <!-- Финал -->
                     <div class="round">
                         <div class="round-title">ФИНАЛ</div>
                         <div class="match final-match">
@@ -550,11 +551,9 @@
             </div>
         </div>
         
-        <!-- Сетка лузеров -->
         <div class="tab-content losers" id="content2">
             <div class="bracket-container">
                 <div class="bracket" id="losersBracket">
-                    <!-- Первый раунд лузеров -->
                     <div class="round">
                         <div class="round-title">Раунд 1 (12 → 6)</div>
                         <div class="match">
@@ -583,7 +582,6 @@
                         </div>
                     </div>
                     
-                    <!-- Второй раунд лузеров -->
                     <div class="round">
                         <div class="round-title">Раунд 2 (6 → 3)</div>
                         <div class="match">
@@ -600,7 +598,6 @@
                         </div>
                     </div>
                     
-                    <!-- Финал лузеров -->
                     <div class="round">
                         <div class="round-title">Финал лузеров (3 → 1)</div>
                         <div class="match">
@@ -645,6 +642,66 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // ТВОЯ ССЫЛКА ИЗ SHEETY СЮДА (укажи свою после настройки проекта):
+        const API_URL = "https://api.sheety.co/ТВОЙ_ХЭШ/имяПроекта/matches"; 
+
+        // Функция автоматического присвоения ID каждому матчу на странице
+        function autoAssignMatchIds() {
+            const allMatches = document.querySelectorAll('.match');
+            allMatches.forEach((match, index) => {
+                // Первый матч получит id="match-1", второй — id="match-2" и т.д.
+                match.id = `match-${index + 1}`;
+            });
+        }
+
+        async function loadDataFromTable() {
+            if (API_URL.includes("ТВОЙ_ХЭШ")) {
+                console.log("Sheety API URL не настроен. Показываем стандартные имена.");
+                return; 
+            }
+
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                const matches = data.matches || [];
+
+                matches.forEach(m => {
+                    const matchElement = document.getElementById(`match-${m.id}`);
+                    
+                    if (matchElement) {
+                        const playerElements = matchElement.querySelectorAll('.player');
+                        
+                        if (playerElements.length >= 2) {
+                            // Обновляем имена игроков
+                            playerElements[0].textContent = m.player1 || '—';
+                            playerElements[1].textContent = m.player2 || '—';
+
+                            // Очищаем прошлую подсветку победителей
+                            playerElements[0].classList.remove('winner-highlight');
+                            playerElements[1].classList.remove('winner-highlight');
+
+                            // Проверяем, записан ли победитель в таблице
+                            if (m.winner && m.winner.trim() === m.player1?.trim()) {
+                                playerElements[0].classList.add('winner-highlight');
+                            } else if (m.winner && m.winner.trim() === m.player2?.trim()) {
+                                playerElements[1].classList.add('winner-highlight');
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error("Ошибка при получении данных Sheety:", error);
+            }
+        }
+
+        // Запуск при открытии страницы
+        autoAssignMatchIds();
+        loadDataFromTable();
+
+        // Автообновление данных каждые 30 секунд
+        setInterval(loadDataFromTable, 30000);
+    </script>
 </body>
 </html>
-
