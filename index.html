@@ -5,34 +5,60 @@
     <title>Турнирная сетка</title>
     <style>
         body { background: #0a0a1a; color: #fff; font-family: sans-serif; padding: 20px; }
-        .container { display: flex; gap: 20px; overflow-x: auto; }
+        .bracket { display: flex; gap: 20px; overflow-x: auto; padding: 20px; }
         .round { min-width: 200px; }
-        .match { background: #16202c; padding: 10px; margin-bottom: 12px; border-left: 4px solid #3a7bd5; border-radius: 5px; }
-        .player { padding: 6px; background: rgba(255,255,255,0.05); margin: 3px 0; border-radius: 3px; font-size: 14px; }
+        .match { background: #0f1621; padding: 10px; margin-bottom: 15px; border-left: 4px solid #4cc9f0; border-radius: 5px; }
+        .player { padding: 5px; background: rgba(255,255,255,0.05); margin: 2px 0; border-radius: 3px; }
         .winner-highlight { border-left: 3px solid #10b981; background: rgba(16, 185, 129, 0.15); font-weight: bold; }
-        h3 { color: #4cc9f0; text-align: center; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="round"><h3>Раунд 1</h3>
-            <script>for(let i=1; i<=12; i++) document.write(`<div class="match" id="match-${i}"><div class="player">—</div><div class="player">—</div></div>`);</script>
+    <h1>Турнирная сетка</h1>
+    <div class="bracket" id="bracket">
+        <div class="round">
+            <h3>Раунд 1</h3>
+            <div class="match" id="match-1"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-2"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-3"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-4"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-5"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-6"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-7"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-8"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-9"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-10"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-11"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-12"><div class="player">—</div><div class="player">—</div></div>
         </div>
-        <div class="round"><h3>Раунд 2 (Лузеры)</h3>
-            <script>for(let i=13; i<=18; i++) document.write(`<div class="match" id="match-${i}"><div class="player">—</div><div class="player">—</div></div>`);</script>
+        <div class="round">
+            <h3>Раунд 2</h3>
+            <div class="match" id="match-13"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-14"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-15"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-16"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-17"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-18"><div class="player">—</div><div class="player">—</div></div>
         </div>
-        <div class="round"><h3>Раунд 3</h3>
-            <script>for(let i=19; i<=21; i++) document.write(`<div class="match" id="match-${i}"><div class="player">—</div><div class="player">—</div></div>`);</script>
+        <div class="round">
+            <h3>Раунд 3</h3>
+            <div class="match" id="match-19"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-20"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-21"><div class="player">—</div><div class="player">—</div></div>
         </div>
-        <div class="round"><h3>Финал</h3>
-            <script>for(let i=22; i<=24; i++) document.write(`<div class="match" id="match-${i}"><div class="player">—</div><div class="player">—</div></div>`);</script>
+        <div class="round">
+            <h3>Финал</h3>
+            <div class="match" id="match-22"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-23"><div class="player">—</div><div class="player">—</div></div>
+            <div class="match" id="match-24"><div class="player">—</div><div class="player">—</div></div>
         </div>
     </div>
 
     <script>
-        async function syncData() {
+        const API_URL = "https://api.sheety.co/476209bbc3bc43d3df2be3ea4f33f395/bd/matches";
+
+        async function updateBracket() {
             try {
-                const res = await fetch("https://api.sheety.co/476209bbc3bc43d3df2be3ea4f33f395/bd/matches");
+                const res = await fetch(API_URL);
                 const data = await res.json();
                 data.matches.forEach(m => {
                     const el = document.getElementById(`match-${m.id}`);
@@ -47,10 +73,10 @@
                         }
                     }
                 });
-            } catch (e) { console.error("Ошибка синхронизации"); }
+            } catch (e) { console.error("Ошибка сети"); }
         }
-        syncData();
-        setInterval(syncData, 5000);
+        updateBracket();
+        setInterval(updateBracket, 5000);
     </script>
 </body>
 </html>
