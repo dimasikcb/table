@@ -663,37 +663,40 @@
     }
 
     try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        
-        // Магия тут: Sheety переводит кириллицу "Лист1" в "лист1" с маленькой буквы
-        const matches = data["лист1"] || [];
-
-        matches.forEach(m => {
-            const matchElement = document.getElementById(`match-${m.id}`);
+            const response = await fetch(API_URL);
+            const data = await response.json();
             
-            if (matchElement) {
-                const playerElements = matchElement.querySelectorAll('.player');
+            // Автоматически берем первую попавшуюся вкладку из ответа Sheety, 
+            // чтобы не зависеть от названий "Лист1", "matches" или "matches2"
+            const firstKey = Object.keys(data)[0];
+            const matches = data[firstKey] || [];
+
+            matches.forEach(m => {
+                const matchElement = document.getElementById(`match-${m.id}`);
                 
-                if (playerElements.length >= 2) {
-                    // Подтягиваем данные из твоих колонок player1 и player2
-                    playerElements[0].textContent = m.player1 || '—';
-                    playerElements[1].textContent = m.player2 || '—';
+                if (matchElement) {
+                    const playerElements = matchElement.querySelectorAll('.player');
+                    
+                    if (playerElements.length >= 2) {
+                        // Меняем имена (используем свойства player1 и player2 из таблицы)
+                        playerElements[0].textContent = m.player1 || '—';
+                        playerElements[1].textContent = m.player2 || '—';
 
-                    playerElements[0].classList.remove('winner-highlight');
-                    playerElements[1].classList.remove('winner-highlight');
+                        // Сброс и проверка победителя
+                        playerElements[0].classList.remove('winner-highlight');
+                        playerElements[1].classList.remove('winner-highlight');
 
-                    if (m.winner && m.winner.trim() === m.player1?.trim()) {
-                        playerElements[0].classList.add('winner-highlight');
-                    } else if (m.winner && m.winner.trim() === m.player2?.trim()) {
-                        playerElements[1].classList.add('winner-highlight');
+                        if (m.winner && m.winner.trim() === m.player1?.trim()) {
+                            playerElements[0].classList.add('winner-highlight');
+                        } else if (m.winner && m.winner.trim() === m.player2?.trim()) {
+                            playerElements[1].classList.add('winner-highlight');
+                        }
                     }
                 }
-            }
-        });
-    } catch (error) {
-        console.error("Ошибка при получении данных Sheety:", error);
-    }
+            });
+        } catch (error) {
+            console.error("Ошибка при получении данных Sheety:", error);
+        }
 }
 
         // Запуск при открытии страницы
