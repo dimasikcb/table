@@ -57,7 +57,6 @@
             border-radius: 3px;
         }
         
-        /* Система вкладок */
         .tabs {
             display: flex;
             justify-content: center;
@@ -124,7 +123,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Стили для сетки */
         .bracket-container {
             width: 100%;
             overflow-x: auto;
@@ -227,7 +225,6 @@
             border-left-color: #e74c3c;
         }
         
-        /* Стили подсветки победителя */
         .player.winner-highlight {
             border-left: 3px solid #10b981 !important;
             background: rgba(16, 185, 129, 0.15);
@@ -274,7 +271,6 @@
             to { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
         }
         
-        /* Информационный блок */
         .info-box {
             margin-top: 40px;
             padding: 25px;
@@ -363,57 +359,26 @@
             color: #e74c3c;
         }
         
-        /* Адаптивность */
         @media (max-width: 1024px) {
-            .round {
-                width: calc(25% - 20px);
-            }
-            
-            .info-columns {
-                columns: 1;
-            }
+            .round { width: calc(25% - 20px); }
+            .info-columns { columns: 1; }
         }
         
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .tab-label {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-            
-            .round {
-                width: calc(33% - 20px);
-            }
-            
-            .player {
-                padding: 10px 12px;
-                font-size: 14px;
-            }
+            h1 { font-size: 2rem; }
+            .tab-label { padding: 10px 20px; font-size: 14px; }
+            .round { width: calc(33% - 20px); }
+            .player { padding: 10px 12px; font-size: 14px; }
         }
         
         @media (max-width: 600px) {
-            .round {
-                width: calc(50% - 20px);
-            }
+            .round { width: calc(50% - 20px); }
         }
         
         @media (max-width: 480px) {
-            .tabs {
-                flex-wrap: wrap;
-            }
-            
-            .tab-label {
-                margin-bottom: 5px;
-                border-radius: 6px;
-                border: 2px solid var(--match-border);
-            }
-            
-            .round {
-                width: 100%;
-            }
+            .tabs { flex-wrap: wrap; }
+            .tab-label { margin-bottom: 5px; border-radius: 6px; border: 2px solid var(--match-border); }
+            .round { width: 100%; }
         }
     </style>
 </head>
@@ -432,53 +397,54 @@
         <div class="tab-content" id="content1">
             <div class="bracket-container">
                 <div class="bracket" id="mainBracket">
+                    
                     <div class="round">
                         <div class="round-title">1/24 финала (24 → 12)</div>
-                        <div class="match">
+                        <div class="match" id="match-1">
                             <div class="player">Игрок 1</div>
                             <div class="player">Игрок 2</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-2">
                             <div class="player">Игрок 3</div>
                             <div class="player">Игрок 4</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-3">
                             <div class="player">Игрок 5</div>
                             <div class="player">Игрок 6</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-4">
                             <div class="player">Игрок 7</div>
                             <div class="player">Игрок 8</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-5">
                             <div class="player">Игрок 9</div>
                             <div class="player">Игрок 10</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-6">
                             <div class="player">Игрок 11</div>
                             <div class="player">Игрок 12</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-7">
                             <div class="player">Игрок 13</div>
                             <div class="player">Игрок 14</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-8">
                             <div class="player">Игрок 15</div>
                             <div class="player">Игрок 16</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-9">
                             <div class="player">Игрок 17</div>
                             <div class="player">Игрок 18</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-10">
                             <div class="player">Игрок 19</div>
                             <div class="player">Игрок 20</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-11">
                             <div class="player">Игрок 21</div>
                             <div class="player">Игрок 22</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-12">
                             <div class="player">Игрок 23</div>
                             <div class="player">Игрок 24</div>
                         </div>
@@ -486,27 +452,27 @@
                     
                     <div class="round">
                         <div class="round-title">1/12 финала (12 → 6)</div>
-                        <div class="match">
+                        <div class="match" id="match-19">
                             <div class="player">Игрок 1</div>
                             <div class="player">Игрок 3</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-20">
                             <div class="player">Игрок 5</div>
                             <div class="player">Игрок 7</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-21">
                             <div class="player">Игрок 9</div>
                             <div class="player">Игрок 11</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-22">
                             <div class="player">Игрок 13</div>
                             <div class="player">Игрок 15</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-23">
                             <div class="player">Игрок 17</div>
                             <div class="player">Игрок 19</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-24">
                             <div class="player">Игрок 21</div>
                             <div class="player">Игрок 23</div>
                         </div>
@@ -514,15 +480,15 @@
                     
                     <div class="round">
                         <div class="round-title">1/6 финала (6 → 3)</div>
-                        <div class="match">
+                        <div class="match" id="match-25">
                             <div class="player">Игрок 1</div>
                             <div class="player">Игрок 5</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-26">
                             <div class="player">Игрок 9</div>
                             <div class="player">Игрок 13</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-27">
                             <div class="player">Игрок 17</div>
                             <div class="player">Игрок 21</div>
                         </div>
@@ -530,11 +496,11 @@
                     
                     <div class="round">
                         <div class="round-title">1/3 финала (3 + 1 → 2)</div>
-                        <div class="match">
+                        <div class="match" id="match-31">
                             <div class="player">Игрок 1</div>
                             <div class="player">Игрок 9</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-32">
                             <div class="player">Игрок 17</div>
                             <div class="player returning">Победитель лузеров</div>
                         </div>
@@ -542,7 +508,7 @@
                     
                     <div class="round">
                         <div class="round-title">ФИНАЛ</div>
-                        <div class="match final-match">
+                        <div class="match final-match" id="match-33">
                             <div class="player">Игрок 1</div>
                             <div class="player">Игрок 17</div>
                         </div>
@@ -556,27 +522,27 @@
                 <div class="bracket" id="losersBracket">
                     <div class="round">
                         <div class="round-title">Раунд 1 (12 → 6)</div>
-                        <div class="match">
+                        <div class="match" id="match-13">
                             <div class="player">Игрок 2</div>
                             <div class="player">Игрок 4</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-14">
                             <div class="player">Игрок 6</div>
                             <div class="player">Игрок 8</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-15">
                             <div class="player">Игрок 10</div>
                             <div class="player">Игрок 12</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-16">
                             <div class="player">Игрок 14</div>
-                            <div class="player">Игрок 16</div>
+                            <div class="player">Игrow 16</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-17">
                             <div class="player">Игрок 18</div>
                             <div class="player">Игрок 20</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-18">
                             <div class="player">Игрок 22</div>
                             <div class="player">Игрок 24</div>
                         </div>
@@ -584,15 +550,15 @@
                     
                     <div class="round">
                         <div class="round-title">Раунд 2 (6 → 3)</div>
-                        <div class="match">
+                        <div class="match" id="match-28">
                             <div class="player">Игрок 2</div>
                             <div class="player">Игрок 6</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-29">
                             <div class="player">Игрок 10</div>
                             <div class="player">Игрок 14</div>
                         </div>
-                        <div class="match">
+                        <div class="match" id="match-30">
                             <div class="player">Игрок 18</div>
                             <div class="player">Игрок 22</div>
                         </div>
@@ -600,7 +566,7 @@
                     
                     <div class="round">
                         <div class="round-title">Финал лузеров (3 → 1)</div>
-                        <div class="match">
+                        <div class="match" id="match-34">
                             <div class="player">Игрок 2</div>
                             <div class="player">Игрок 10</div>
                             <div class="player">Игрок 18</div>
@@ -609,7 +575,7 @@
                     
                     <div class="round">
                         <div class="round-title">Победитель лузеров</div>
-                        <div class="match final-match">
+                        <div class="match final-match" id="match-35">
                             <div class="player returning">Игрок 2</div>
                         </div>
                     </div>
@@ -643,21 +609,8 @@
         </div>
     </div>
 
-<script>
+    <script>
         const API_URL = "https://api.sheety.co/476209bbc3bc43d3df2be3ea4f33f395/bd/matches"; 
-
-        // Нумерация карточек на сайте строго по порядку
-        function autoAssignMatchIds() {
-            const mainMatches = document.querySelectorAll('#mainBracket .match');
-            mainMatches.forEach((match, index) => {
-                match.id = `match-${index + 1}`;
-            });
-
-            const losersMatches = document.querySelectorAll('#losersBracket .match');
-            losersMatches.forEach((match, index) => {
-                match.id = `loser-${index + 1}`;
-            });
-        }
 
         async function loadDataFromTable() {
             if (API_URL.includes("ТВОЙ_ХЭШ")) return; 
@@ -665,7 +618,6 @@
             try {
                 const response = await fetch(API_URL);
                 const data = await response.json();
-                
                 let matchesArray = [];
                 if (data.matches) {
                     matchesArray = data.matches;
@@ -675,18 +627,13 @@
                 }
 
                 matchesArray.forEach(m => {
-                    // Ищем карточку матча по ID
                     const matchElement = document.getElementById(`match-${m.id}`);
-                    
                     if (matchElement) {
                         const playerElements = matchElement.querySelectorAll('.player');
-                        
                         if (playerElements.length >= 2) {
-                            // Просто выводим то, что написано в таблице для этой карточки, без лишних фильтров
                             playerElements[0].textContent = m.player1 || '—';
                             playerElements[1].textContent = m.player2 || '—';
 
-                            // Сброс и логика подсветки победителя
                             playerElements[0].classList.remove('winner-highlight');
                             playerElements[1].classList.remove('winner-highlight');
 
@@ -695,6 +642,8 @@
                             } else if (m.winner && m.winner.trim() === playerElements[1].textContent.trim()) {
                                 playerElements[1].classList.add('winner-highlight');
                             }
+                        } else if (playerElements.length === 1) {
+                            playerElements[0].textContent = m.player1 || '—';
                         }
                     }
                 });
@@ -703,9 +652,8 @@
             }
         }
 
-        autoAssignMatchIds();
         loadDataFromTable();
         setInterval(loadDataFromTable, 30000);
-</script>
+    </script>
 </body>
 </html>
